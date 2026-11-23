@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Joint - Splice Report</title><style>
+:root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#172538;background:#f3f6fa}*{box-sizing:border-box}body{margin:0}header{background:#102943;color:white;padding:22px 30px}h1{margin:0 0 6px;font-size:23px}header p{margin:0;color:#b8cfe1}.toolbar{display:flex;gap:12px;align-items:end;flex-wrap:wrap;padding:18px 28px;background:white;border-bottom:1px solid #dce4ed}label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;color:#526276}select,input,button{font:inherit;border:1px solid #cbd5e1;border-radius:7px;padding:9px 12px;background:white;color:#172538}button{cursor:pointer;background:#1263a5;color:white;border:0}button.secondary{background:#eaf1f8;color:#204664}.wrap{padding:22px 28px;max-width:1700px;margin:auto}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:17px}.card{background:white;border:1px solid #e0e7ef;border-radius:9px;padding:13px 18px;min-width:160px}.card strong{display:block;font-size:23px}.card span{font-size:12px;color:#65788c}.panel{background:white;border:1px solid #dce4ed;border-radius:12px;overflow:hidden}.panelhead{padding:18px 20px;border-bottom:1px solid #e1e8ef;display:flex;justify-content:space-between;align-items:center;gap:15px}.panelhead h2{margin:0;font-size:19px}.hint{font-size:12px;color:#60758b}.grid{overflow:auto;padding:16px}.columnheads,.row{display:grid;grid-template-columns:minmax(220px,1fr) 72px minmax(260px,1.1fr) 72px minmax(220px,1fr);gap:9px;align-items:center;min-width:940px}.columnheads{font-size:12px;text-transform:uppercase;color:#65788c;font-weight:700;margin-bottom:8px;text-align:center}.row{border-radius:7px;padding:5px 4px;min-height:53px}.row:nth-child(even){background:#f5f7fa}.endpoint{padding:8px 12px;border:1px solid #dbe5ee;border-radius:7px;background:white;min-height:46px}.endpoint b{font-size:13px}.endpoint small{display:block;font-size:11px;color:#62788d;margin-top:3px}.endpoint.empty{color:#9aa8b5;border-style:dashed}.pos{text-align:center;font-weight:700;color:#50667b}.connector{position:relative;height:34px}.connector:before{content:"";position:absolute;top:16px;left:0;right:0;border-top:3px solid #1b9b82}.connector:after{content:"";position:absolute;top:11px;left:50%;width:10px;height:10px;background:#1b9b82;border-radius:50%;transform:translateX(-50%)}.connector.open:before{border-top:3px dashed #c4ced9}.connector.open:after{background:#c4ced9}.badge{display:inline-block;font-size:10px;background:#e1f5ed;color:#117251;padding:3px 6px;border-radius:4px;margin-left:5px}.notice{margin-top:14px;color:#6b7890;font-size:12px;line-height:1.6}footer{padding:15px 28px;color:#718297;font-size:12px}@media print{header,.toolbar,.notice,footer{display:none}.wrap{padding:0}.panel{border:0}.grid{overflow:visible}.row{break-inside:avoid}}@media(max-width:650px){.toolbar,.wrap{padding:12px}.panelhead{display:block}}
+ .live-tools{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:0 0 14px}.live-tools label{min-width:175px}.live-tools input{min-width:250px}.tray-block{margin:16px 0 22px;border:1px solid #d6e2ed;border-radius:9px;overflow:hidden;background:#fff}.tray-block h3{margin:0;background:#eaf1f8;color:#193f60;padding:12px 14px;font-size:15px;display:flex;justify-content:space-between}.tray-block h3 small{font-weight:400;color:#587086}.live-table{width:100%;border-collapse:collapse;font-size:12px}.live-table th{position:sticky;top:0;background:#f3f7fb;text-align:left;padding:10px 9px;white-space:nowrap;border-bottom:2px solid #c9d9e8}.live-table td{padding:9px;border-bottom:1px solid #e0e7ed;white-space:nowrap}.live-table tbody tr:nth-child(even){background:#f7f9fb}.live-table td.fibre{font-weight:700}.live-table td.blank{color:#8794a2}.live-table td.circuit{color:#0c608e}.live-empty{padding:14px;color:#65788c}.auth{padding:14px 28px;background:#eaf2fb;border-bottom:1px solid #cbd8e7;display:flex;gap:10px;flex-wrap:wrap;align-items:end}.auth .wide{min-width:290px;flex:1}.authstatus{font-size:12px;color:#244f73;align-self:center}.auth input{max-width:100%}.tray-block h3{padding:0}.tray-toggle{width:100%;padding:12px 14px;background:#eaf1f8;color:#193f60;border-radius:0;display:flex;gap:10px;align-items:center;text-align:left;font-size:15px;font-weight:700}.tray-toggle:hover{background:#daeaf7}.tray-toggle small{margin-left:auto;font-size:12px;font-weight:400;color:#587086}.tray-chevron{width:16px;font-size:13px}.tray-content[hidden]{display:none}@media print{.tray-content[hidden]{display:block!important}.tray-toggle{color:#193f60!important;background:#eaf1f8!important}}.candidate-group{border:1px solid #d6e2ed;border-radius:8px;margin:12px 0;overflow:hidden}.candidate-group .tray-toggle{background:#f0f5fa}.candidate-status{color:#825919;font-weight:600}.live-table td.tube-full{background:#e9ecef;color:#344054;font-weight:700;white-space:nowrap}.live-table td.tube-partial{background:#ffe6c7;color:#784415;font-weight:700;white-space:nowrap}.partial-note{font-size:11px;color:#8b5c1c}.group-hint{font-size:12px;color:#5b7187;flex-basis:100%}#groupTubes[aria-pressed="true"]{background:#166b54;color:#fff}.source{background:#fff7e6;padding:9px 28px;font-size:12px;color:#72521b} 
+/* Joint search and inventory section — V16.1 */
+.joint-section{background:#fff;border-bottom:1px solid #d7e3ee;padding:19px 28px 22px}
+.joint-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.joint-section-head h2{margin:0 0 4px;font-size:19px;color:#183a56}
+.joint-section-head p{margin:0;font-size:12px;color:#61758b}
+.joint-query-status{background:#f1f5f9;border-radius:999px;padding:6px 10px;color:#42617a;font-size:12px}
+.joint-search{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:14px}
+.joint-search label{width:min(510px,100%);flex:0 1 510px}
+.joint-search input{width:100%;min-width:0}
+.joint-search button{min-height:38px}
+.joint-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin:0 0 12px}
+.joint-detail{border:1px solid #dbe5ef;background:#f6f9fc;border-radius:7px;padding:11px 13px;min-width:0}
+.joint-detail .label{color:#667b90;font-size:11px;font-weight:700;letter-spacing:.02em;margin-bottom:6px}
+.joint-detail .value{color:#1c354b;font-size:14px;font-weight:650;overflow-wrap:anywhere}
+.joint-detail .value.muted{color:#8797a7;font-weight:400}
+.joint-cables{margin:0 0 11px;overflow:hidden}
+.joint-cables h3{margin:0 0 8px;font-size:14px;color:#1b3c58}
+.joint-cables h3 span{font-size:12px;color:#698095;font-weight:400}
+.joint-cables .table-wrap{overflow-x:auto;border:1px solid #dae4ed;border-radius:8px}
+.joint-cables table{border-collapse:collapse;width:100%;min-width:650px;font-size:12px}
+.joint-cables th{background:#eff5fa;text-align:left;color:#36536b;border-bottom:1px solid #d4e0e9;font-size:12px}
+.joint-cables td,.joint-cables th{padding:9px 12px;border-bottom:1px solid #e7edf2}
+.joint-cables tbody tr:nth-child(even){background:#f8fafc}
+.joint-cables td:first-child{font-weight:650}
+.joint-cables .footnote{margin:8px 0 0;color:#64798c;font-size:11px}
+.joint-empty{padding:10px 13px;border:1px dashed #d5e1ed;border-radius:7px;color:#6c8092;background:#f9fbfd;font-size:12px;grid-column:1/-1}
+.query-message{font-size:12px;color:#446580;margin-top:8px}
+@media(max-width:650px){.joint-section{padding:15px 12px}.joint-search label{flex:1 1 100%}.joint-search button{width:100%}}
+
+/* V16.1 — One clean card for all splice-joint attributes */
+.joint-details{display:block;margin:0 0 15px}
+.joint-summary-card{border:1px solid #d6e2ec;border-radius:9px;background:#fff;overflow:hidden}
+.joint-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.joint-summary-field{padding:14px 17px;min-width:0;border-right:1px solid #e7edf2;border-bottom:1px solid #e7edf2}
+.joint-summary-field:nth-child(4n){border-right:0}
+.joint-summary-field:nth-last-child(-n+4){border-bottom:0}
+.joint-summary-field .label{font-size:11px;color:#687c8e;font-weight:700;margin-bottom:6px}
+.joint-summary-field .value{font-size:14px;color:#18374f;font-weight:600;overflow-wrap:anywhere;line-height:1.45}
+.joint-summary-field .value.muted{color:#8d9baa;font-weight:400}
+@media(max-width:850px){.joint-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.joint-summary-field:nth-child(4n){border-right:1px solid #e7edf2}.joint-summary-field:nth-child(2n){border-right:0}.joint-summary-field:nth-last-child(-n+4){border-bottom:1px solid #e7edf2}.joint-summary-field:nth-last-child(-n+2){border-bottom:0}}
+@media(max-width:450px){.joint-summary-grid{grid-template-columns:1fr}.joint-summary-field{border-right:0!important;border-bottom:1px solid #e7edf2!important}.joint-summary-field:last-child{border-bottom:0!important}}
+
+/* V16.2 — compact ArcGIS authentication and inline joint-query summary */
+.auth .auth-config-hidden{display:none!important}
+.auth #signin,.auth #signout,.auth #useToken{background:#1263a5;color:#fff;border:0;border-radius:7px}
+.auth #signin:hover:not(:disabled),.auth #signout:hover:not(:disabled),.auth #useToken:hover:not(:disabled){background:#0e528c}
+.auth #signout:disabled{opacity:.55;cursor:not-allowed}
+.joint-search .query-inline-status{align-self:center;flex:1 1 260px;min-width:190px;line-height:1.45;overflow-wrap:anywhere;color:#245b3d;font-weight:500}
+@media(max-width:650px){.joint-search .query-inline-status{flex:1 1 100%}}
+
+/* V16.4 — align Splice Joint Details to the Joint - Splice Report panel width. */
+.joint-section{
+  width:calc(100% - 56px);
+  max-width:1644px;
+  margin:22px auto 0;
+  padding:19px 20px 22px;
+  border:1px solid #dce4ed;
+  border-radius:12px;
+}
+@media(max-width:650px){
+  .joint-section{width:calc(100% - 24px);padding:15px 12px;margin-top:12px}
+}
+</style></head><body><header><h1>Fibre Splice Tray Viewer</h1><p>Live ArcGIS splice schedule · Tray groups and unspliced fibre candidates</p></header><div class="auth"><label class="auth-config-hidden">ArcGIS Portal URL<input id="portal" value="https://arcgis.fibreconx.com.au/portal"/></label><label class="auth-config-hidden">OAuth App ID<input id="clientid" value="j61ihett8O71eFQI"/></label><button id="signin">Sign in to ArcGIS</button><button disabled="" id="signout">Sign out</button><label>Alternative: temporary token<input autocomplete="off" id="manualToken" placeholder="Token (not saved)" type="password"/></label><button id="useToken">Use token</button></div><section aria-label="Splice joint details" class="joint-section">
+<div class="joint-section-head"><div><h2>Splice Joint Details</h2><p>Search for a joint to view its details, referenced cables and live splice connections.</p></div><span class="joint-query-status" id="jointQueryStatus">No joint loaded</span></div>
+<div class="joint-search"><label class="wide">Joint name / splice number<input id="joint" placeholder="Enter joint name / splice number" value=""/></label><button id="querysplices">Create Report</button><span class="authstatus query-inline-status" id="authstatus" role="status" aria-live="polite">Not signed in</span></div>
+<div aria-live="polite" class="joint-details" id="jointDetails"><div class="joint-empty">Query a joint to display its properties.</div></div>
+<div aria-live="polite" class="joint-cables" id="jointCables"><div class="joint-empty">Cable information will appear after querying the joint.</div></div>
+<div class="query-message" id="sourceinfo" role="status">Paste a temporary ArcGIS token, then search for a joint.</div>
+</section><main class="wrap">
+<section class="panel" style="margin-top:18px"><div class="panelhead"><h2 id="reportTitle">Joint - Splice Report</h2><span class="hint">SpliceClosure (1) / Fibersplice (29) / FiberCable (7) / Signal (30) / Fiber (27)</span></div><div class="grid"><div class="live-tools"><label>Live tray <select id="liveTray"><option value="all">All trays</option></select></label><label>Filter live connections <input id="liveFilter" placeholder="Cable, fibre, circuit, customer"/></label><button aria-pressed="false" class="secondary" id="groupTubes" type="button">Group tubes/Ribbons</button><button class="secondary" id="expandTrays" type="button">Expand all trays</button><button class="secondary" id="collapseTrays" type="button">Minimise all trays</button><button class="secondary" id="liveCsv">Export joint + schedule CSV</button><span class="hint" id="liveSummary">No live records loaded</span></div><div id="circuitTable" style="overflow-x:auto;margin-bottom:16px"></div><div id="live" style="font-size:13px">Enter a joint and select Create Report to load the live schedule.</div></div> </section>
+</main><footer>FibreConX · Live splice tray viewer</footer><script>
+// Authentication adapted from FibreconX Cable Fibre & Circuit Viewer V11.
+// ArcGIS Maps SDK IdentityManager + OAuthInfo (redirect flow), with temporary token fallback.
+const $=id=>document.getElementById(id), base='https://arcgis.fibreconx.com.au/server/rest/services/3GIS/Telecom/MapServer';
+let authToken='',identityManager=null,closure=null;
+// Timestamp belongs to the generated report, not the CSV download or view toggle.
+let reportCreatedAt=null;
+function localReportDate(date){return date.toLocaleString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});}
+function updateReportTitle(){ $('reportTitle').textContent='Joint - Splice Report'+(reportCreatedAt?' — '+localReportDate(reportCreatedAt):''); }
+function status(msg){$('authstatus').textContent=msg}
+function setAuth(msg){status(msg);$('signout').disabled=!authToken}
+function loadSdk(){return new Promise((resolve,reject)=>{if(window.require&&window.require.toUrl)return resolve();const el=document.createElement('script');el.src='https://js.arcgis.com/4.32/';el.onload=resolve;el.onerror=()=>reject(Error('Could not load ArcGIS Maps SDK. Check hosting CSP.'));document.head.appendChild(el)})}
+async function initializeOAuth(){try{await loadSdk();window.require(['esri/identity/IdentityManager','esri/identity/OAuthInfo'],(esriId,OAuthInfo)=>{identityManager=esriId;
+ const portalUrl=$('portal').value.replace(/\/$/,'');const appId=$('clientid').value.trim();
+ if(!appId){$('signin').disabled=true;status('Enter an OAuth App ID or use a temporary token.');return}
+ esriId.registerOAuthInfos([new OAuthInfo({appId,portalUrl,popup:false})]);const sharing=portalUrl+'/sharing';
+ esriId.checkSignInStatus(sharing).then(c=>{authToken=c.token;setAuth('Portal signed in (session restored)')}).catch(()=>{if(!authToken)setAuth('Not signed in')});
+ $('signin').addEventListener('click',async()=>{try{status('Redirecting to ArcGIS Portal…');const c=await esriId.getCredential(sharing);authToken=c.token;setAuth('Portal signed in')}catch(e){status('Sign-in failed: '+e.message)}});
+ },err=>status('ArcGIS SDK failed: '+err.message))}catch(e){status('ArcGIS SDK unavailable: '+e.message)}}
+$('useToken').addEventListener('click',()=>{const token=$('manualToken').value.trim();$('manualToken').value='';if(!token){status('Paste a temporary token first.');return}authToken=token;setAuth('Temporary token active (memory only)')});
+$('signout').addEventListener('click',()=>{if(identityManager)identityManager.destroyCredentials();authToken='';closure=null;setAuth('Not signed in')});
+async function rest(url,params={}){if(!authToken)throw Error('Sign in to ArcGIS Portal or use a temporary token first');const body=new URLSearchParams({...params,f:'json',token:authToken});let r;try{r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body,credentials:'omit'})}catch(e){throw Error('ArcGIS request blocked. Check browser CSP/CORS and hosting. '+e.message)}if(!r.ok)throw Error('HTTP '+r.status+' (check CORS / service access)');const j=await r.json();if(j.error){if(j.error.code===498||j.error.code===499)throw Error('ArcGIS token expired or not accepted by MapServer. Sign in again.');throw Error(j.error.message+' '+(j.error.details||[]).join(' '))}return j}
+// Cache layer metadata (including in-flight requests) to avoid repeated REST calls.
+const schemaCache=new Map();
+function schema(id){if(!schemaCache.has(id)){const request=rest(base+'/'+id).catch(e=>{schemaCache.delete(id);throw e});schemaCache.set(id,request)}return schemaCache.get(id)}
+// Run a small number of ArcGIS requests concurrently to reduce total lookup time
+// without flooding the server.
+async function parallelBatches(items,worker,concurrency=5){
+ const results=new Array(items.length);let cursor=0;
+ async function next(){while(cursor<items.length){const i=cursor++;results[i]=await worker(items[i],i)}}
+ await Promise.all(Array.from({length:Math.min(concurrency,items.length)},next));
+ return results;
+}
+function chunks(values,size){const out=[];for(let i=0;i<values.length;i+=size)out.push(values.slice(i,i+size));return out}
+
+function findField(fields,candidates){return candidates.map(n=>fields.find(f=>f.name.toLowerCase()===n.toLowerCase())?.name).find(Boolean)}
+function quote(v){return "'"+String(v).replace(/'/g,"''")+"'"}
+function show(title,items){const wrap=document.createElement('div');const h=document.createElement('h3');h.textContent=title+' ('+items.length+')';wrap.append(h);const pre=document.createElement('pre');pre.style.cssText='white-space:pre-wrap;overflow:auto;max-height:450px;background:#f5f7fa;padding:12px;border-radius:8px';pre.textContent=JSON.stringify(items,null,2);wrap.append(pre);$('live').prepend(wrap)}
+async function queryJoint(){closure=null;renderJointDetails(null);renderCableDetails([],new Map());try{status('Querying joint…');const meta=await schema(1);const f=findField(meta.fields||[],['splicenumber','name','splice_number']);if(!f)throw Error('No joint name field found. Fields: '+(meta.fields||[]).map(x=>x.name).join(', '));const q=await rest(base+'/1/query',{where:f+' = '+quote($('joint').value.trim()),outFields:'*',returnGeometry:'false',resultRecordCount:'100'});const a=(q.features||[]).map(x=>x.attributes);closure=a.length===1?a[0]:null;renderJointDetails(closure);status(a.length+' matching joint(s)');$('sourceinfo').textContent=closure?'Joint found. Loading associated splice connections and cables…':'Joint lookup returned '+a.length+' matches. Enter an exact joint name.'}catch(e){status('Joint query failed: '+e.message);$('jointQueryStatus').textContent='Lookup failed';$('sourceinfo').textContent='Joint lookup failed: '+e.message}}
+function val(o,...keys){for(const k of keys){const name=Object.keys(o||{}).find(x=>x.toLowerCase()===k.toLowerCase());if(name&&o[name]!=null)return String(o[name])}return ''}
+function html(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+// The joint detail panel uses the exact returned SpliceClosure fields when available.
+function firstPresent(obj,names){for(const name of names){const key=Object.keys(obj||{}).find(k=>k.toLowerCase()===name.toLowerCase());if(key && obj[key]!==null && obj[key]!==undefined && String(obj[key]).trim()!=='')return String(obj[key])}return ''}
+function renderJointDetails(item){
+ const root=$('jointDetails'),badge=$('jointQueryStatus');
+ if(!item){root.innerHTML='<div class="joint-empty">Query a joint to display its properties.</div>';badge.textContent='No joint loaded';return}
+ const fields=[
+  ['Joint / Splice Number',['splicenumber','splice_number','name']],
+  ['Splice Location',['splicelocation']],
+  ['Manufacturer',['manufacturer']],
+  ['Model Number',['modelnumber']],
+  ['Special Condition',['special_condition']],
+  ['Status',['inventory_status_code']],
+  ['Owner / Operator',['asset_owner']],
+  ['Comments',['comments']]
+ ];
+ root.innerHTML='<div class="joint-summary-card"><div class="joint-summary-grid">'+fields.map(([label,candidates])=>{const v=firstPresent(item,candidates);return '<div class="joint-summary-field"><div class="label">'+html(label)+'</div><div class="value'+(!v?' muted':'')+'">'+html(v||'—')+'</div></div>'}).join('')+'</div></div>';
+ badge.textContent='Joint found';
+}
+function formatMeasuredLength(value){
+ const raw=String(value??'').trim();
+ if(!raw)return '—';
+ const n=Number(raw);
+ return Number.isFinite(n)&&n>=0?Math.ceil(n)+' m':'—';
+}
+let cableExportRows=[];
+function renderCableDetails(splices,cableMap,cableAttributes){
+ cableExportRows=[];
+ const root=$('jointCables');if(!splices.length){root.innerHTML='<div class="joint-empty">No connected cables loaded yet.</div>';return}
+ const records=new Map();
+ for(const row of splices){
+  for(const [side,key,fibreField] of [['A','asegmentidfkey','afiberid'],['Z','zsegmentidfkey','zfiberid']]){
+   const seg=val(row,key).trim();if(!seg)continue;
+   const id=seg.toLowerCase();let item=records.get(id);
+   if(!item){item={segment:seg,name:cableMap.get(id)||'Unresolved: '+seg,a:0,z:0,fibres:new Set()};records.set(id,item)}
+   item[side.toLowerCase()]++;
+   const fibre=val(row,fibreField).trim();if(fibre)item.fibres.add(fibre);
+  }
+ }
+ const items=[...records.values()].sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}));
+ const cells=items.map(item=>{
+  const attributes=cableAttributes.get(item.segment.toLowerCase())||{};
+  const field=(name)=>firstPresent(attributes,[name])||'—';
+  const buffer=firstPresent(attributes,['buffercount']);
+  const perBuffer=firstPresent(attributes,['fibersperbuffer']);
+  const configuration=buffer && perBuffer ? buffer+' x '+perBuffer : (buffer ? buffer+' x —' : perBuffer ? '— x '+perBuffer : '—');
+  return [item.name,field('cabletype'),field('manufacturer'),field('fibercount'),configuration,
+          field('inventory_status_code'),formatMeasuredLength(firstPresent(attributes,['measuredlength'])),item.a,item.z,item.fibres.size];
+ });
+ cableExportRows=cells;
+ const rows=cells.map(values=>'<tr>'+values.map(v=>'<td>'+html(v)+'</td>').join('')+'</tr>').join('');
+ root.innerHTML='<h3>Cables in joint <span>('+items.length+' cable segments referenced)</span></h3><div class="table-wrap"><table><thead><tr><th>Cable Name</th><th>Cable Type</th><th>Manufacturer</th><th>Fibre Count</th><th>Buffers × Fibres/Buffer</th><th>Status</th><th>Measured Length</th><th>A-side Splices</th><th>Z-side Splices</th><th>Distinct Fibre Numbers</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="footnote">Cable properties come from FiberCable (Layer 7); splice counts use Fibersplice (Layer 29). Cables with no splice records may not appear here. Unavailable attributes display —.</p>';
+}
+
+async function queryAll(layer,where,fields='*'){
+ const meta=await schema(layer),limit=Math.min(meta.maxRecordCount||1000,1000);
+ const fetchPage=async offset=>{const q=await rest(base+'/'+layer+'/query',{where,outFields:fields,returnGeometry:'false',resultOffset:String(offset),resultRecordCount:String(limit)});return q};
+ const first=await fetchPage(0);const firstBatch=(first.features||[]).map(x=>x.attributes);
+ if(!first.exceededTransferLimit&&firstBatch.length<limit)return firstBatch;
+ // Request the count once; fetch subsequent pages in parallel (bounded concurrency).
+ const countRes=await rest(base+'/'+layer+'/query',{where,returnCountOnly:'true'});
+ const count=Number(countRes.count)||firstBatch.length;
+ if(count>100000)throw Error('Too many records ('+count+') in layer '+layer);
+ const offsets=[];for(let i=limit;i<count;i+=limit)offsets.push(i);
+ const pages=await parallelBatches(offsets,fetchPage,4);
+ return firstBatch.concat(...pages.map(q=>(q.features||[]).map(x=>x.attributes)));
+}
+// Live ArcGIS splice schedule. Tray values are read only from explicit Fibersplice fields;
+// missing values remain "Unassigned" rather than being inferred from fibre numbers.
+let liveRows=[];
+let unsplicedRows=[]; let unsplicedError="";
+let groupTubes=false;
+const collapsedTrays = new Set();
+const trayNames=['traynumber','tray_number','trayid','tray','splicetray','splice_tray','trayno','tray_no'];
+const positionNames=['trayposition','tray_position','position','spliceposition','splice_position','traypos','tray_pos'];
+const circuitUnique=arr=>[...new Set(arr.map(v=>String(v||'').trim()).filter(Boolean))].join(', ');
+// Fibersplice (Layer 29) coded-value domain: SpliceType.
+// Translate the stored integer into its display name; preserve unexpected codes.
+const SPLICE_TYPES=Object.freeze({
+  2:'Fusion',5:'Pass Thru',6:'Unknown',7:'Butt',
+  9:'De-Ribbonised',10:'Expressed',11:'Planned',12:'Scheduled'
+});
+function spliceTypeName(value){
+ const raw=String(value??'').trim();
+ if(!raw)return '';
+ return Object.prototype.hasOwnProperty.call(SPLICE_TYPES,raw) ? SPLICE_TYPES[raw] : raw;
+}
+
+function buildLiveRows(splices,signalMap,cableMap){
+ const cableName=id=>{id=String(id||'').trim();return !id?'':(cableMap.get(id.toLowerCase())||'Unresolved: '+id)};
+ liveRows=splices.map((r,i)=>{
+  const signal=signalMap.get(val(r,'signalipid').trim().toLowerCase())||[];
+  return {index:i+1,tray:val(r,...trayNames).trim(),position:val(r,...positionNames).trim(),
+   aCable:cableName(val(r,'asegmentidfkey')),aFibre:val(r,'afiberid'),splice:spliceTypeName(val(r,'splicetype')),
+   zCable:cableName(val(r,'zsegmentidfkey')),zFibre:val(r,'zfiberid'),
+   circuit:circuitUnique(signal.map(x=>val(x,'circuitid'))),
+   circuitName:circuitUnique(signal.map(x=>val(x,'circuitname'))),
+   customer:circuitUnique(signal.map(x=>val(x,'customer','customername','customer_name')))};
+ });
+ const trays=[...new Set(liveRows.map(x=>x.tray).filter(Boolean))].sort(naturalSort);
+ const traySelect=$('liveTray');traySelect.innerHTML='<option value="all">All trays</option>'+
+  trays.map(x=>'<option value="'+html(x)+'">Tray '+html(x)+'</option>').join('')+
+  (liveRows.some(x=>!x.tray)?'<option value="__unassigned__">Unassigned / not supplied</option>':'')+
+   '<option value="__unspliced__">Unspliced Fibres</option>';
+ traySelect.value='all';$('liveFilter').value='';collapsedTrays.clear();renderLiveSchedule();
+}
+function naturalSort(a,b){return String(a).localeCompare(String(b),undefined,{numeric:true,sensitivity:'base'})}
+function candidateAsScheduleRow(r){
+ return {index:0,tray:'__unspliced__',position:'',aCable:r.cable,aFibre:r.fibre,
+  splice:'',zFibre:'',zCable:'',circuit:r.circuit||'',circuitName:r.circuitName||'',customer:r.customer||'',
+  buffer:r.buffer||'',segment:r.segment||''};
+}
+function selectedScheduleRows(){
+ const choice=$('liveTray').value,query=$('liveFilter').value.toLowerCase().trim();
+ const all=[...liveRows,...unsplicedRows.map(candidateAsScheduleRow)];
+ return all.filter(r=>{
+  const key=r.tray||'__unassigned__';
+  if(choice!=='all'&&key!==choice)return false;
+  return !query||[r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zCable,r.zFibre,r.circuit,r.circuitName,r.customer,r.buffer,r.segment].some(x=>String(x||'').toLowerCase().includes(query));
+ });
+}
+// Group within each 12-fibre tube, allowing shorter consecutive runs.
+// For a splice, A and Z must BOTH be consecutive and remain in their
+// respective tube boundaries. Do not combine disjoint ranges or crossings.
+function fibreNumber(value){
+ const str=String(value??'').trim();
+ if(!/^\d+$/.test(str))return null;
+ const n=Number(str);
+ return Number.isSafeInteger(n)&&n>0?n:null;
+}
+function tubeNumber(value){
+ const n=fibreNumber(value);
+ return n===null?null:Math.floor((n-1)/12)+1;
+}
+function tubeDisplayLabel(n,row){return n?'#'+n+' ('+(row.grouped?row.memberCount:1)+'F)':'—'}
+function mergedCircuits(rows){
+ return [...new Set(rows.flatMap(r=>String(r.circuit||'').split(',')).map(x=>x.trim()).filter(Boolean))]
+  .sort(naturalSort).join(', ');
+}
+function groupingKey(r){
+ const a=tubeNumber(r.aFibre),z=tubeNumber(r.zFibre);
+ if(!a||!r.aCable)return null;
+ if(r.tray==='__unspliced__')return JSON.stringify(['unspliced',r.aCable,r.segment||'',a]);
+ if(!z||!r.zCable)return null;
+ return JSON.stringify(['splice',r.aCable,r.segment||'',a,r.zCable,z]);
+}
+function groupedEntries(entries){
+ const buckets=new Map();
+ entries.forEach((r,i)=>{
+  const key=groupingKey(r)||'single:'+i;
+  if(!buckets.has(key))buckets.set(key,[]);
+  buckets.get(key).push(r);
+ });
+ const results=[];
+ function pushRun(rows){
+  if(rows.length<2){
+   for(const r of rows)results.push({...r,grouped:false,memberCount:1});
+   return;
+  }
+  const first=rows[0],last=rows[rows.length-1];
+  const unspliced=first.tray==='__unspliced__';
+  const positions=[...new Set(rows.map(r=>r.position).filter(Boolean))];
+  const spliceNames=[...new Set(rows.map(r=>r.splice).filter(Boolean))];
+  results.push({...first,grouped:true,memberCount:rows.length,
+   position:positions.length===1?positions[0]:positions.length?positions.sort(naturalSort).join(', '):'',
+   aTube:tubeNumber(first.aFibre),zTube:unspliced?null:tubeNumber(first.zFibre),
+   aFibre:first.aFibre+'-'+last.aFibre,
+   zFibre:unspliced?'':first.zFibre+'-'+last.zFibre,
+   splice:spliceNames.join(', '),circuit:mergedCircuits(rows),circuitName:'',customer:''});
+ }
+ for(const rows of buckets.values()){
+  const unspliced=rows[0].tray==='__unspliced__';
+  const ordered=[...rows].sort((a,b)=>fibreNumber(a.aFibre)-fibreNumber(b.aFibre)||
+   (unspliced?0:fibreNumber(a.zFibre)-fibreNumber(b.zFibre)));
+  let run=[];
+  for(const row of ordered){
+   const prior=run[run.length-1];
+   const a=fibreNumber(row.aFibre),z=fibreNumber(row.zFibre);
+   const pa=prior?fibreNumber(prior.aFibre):null,pz=prior?fibreNumber(prior.zFibre):null;
+   // A and Z need a one-to-one ascending consecutive relationship.
+   // Duplicate fibres and reversed/crossed connectivity split the run.
+   // Never merge unlike splice types, even when both fibre sequences are consecutive.
+   // Keep unspliced inventory grouping independent of splice type.
+   const sameSpliceType=unspliced || (String(prior?.splice??'').trim().toLowerCase()===String(row.splice??'').trim().toLowerCase());
+   const consecutive=prior && a===pa+1 && (unspliced||z===pz+1) && sameSpliceType;
+   if(prior&&!consecutive){pushRun(run);run=[];}
+   run.push(row);
+  }
+  if(run.length)pushRun(run);
+ }
+ return results.sort((a,b)=>{
+  if(a.tray==='__unspliced__')return naturalSort(a.aCable,b.aCable)||
+   Number(a.aTube||tubeNumber(a.aFibre)||0)-Number(b.aTube||tubeNumber(b.aFibre)||0)||naturalSort(a.aFibre,b.aFibre);
+  return naturalSort(a.position,b.position)||naturalSort(a.aCable,b.aCable)||
+   Number(a.aTube||tubeNumber(a.aFibre)||0)-Number(b.aTube||tubeNumber(b.aFibre)||0)||naturalSort(a.aFibre,b.aFibre);
+ });
+}
+function displayedGroups(){
+ const groups=new Map();
+ selectedScheduleRows().forEach(r=>{const key=r.tray||'__unassigned__';if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r)});
+ if(groupTubes)for(const [key,entries] of groups)groups.set(key,groupedEntries(entries));
+ return groups;
+}
+$('groupTubes').addEventListener('click',()=>{
+ groupTubes=!groupTubes;
+ const button=$('groupTubes');button.textContent=groupTubes?'Show individual fibres':'Group tubes/Ribbons';
+ button.setAttribute('aria-pressed',String(groupTubes));
+ renderLiveSchedule();
+});
+function renderLiveSchedule(){
+ const groups=displayedGroups();
+ // Always place Unspliced Fibres below Unassigned tray, after numbered trays.
+ const keys=[...groups.keys()].sort((a,b)=>a==='__unspliced__'?1:b==='__unspliced__'?-1:a==='__unassigned__'?1:b==='__unassigned__'?-1:naturalSort(a,b));
+ const cols=groupTubes?['Position','A Cable','A Tube/Ribbon','A Fibre','Splice','Z Fibre','Z Tube/Ribbon','Z Cable','Circuit ID']:
+  ['Position','A Cable','A Fibre','Splice','Z Fibre','Z Cable','Circuit ID','Circuit Name','Customer'];
+ const cell=(v,className='')=>'<td class="'+(v?'':'blank ')+className+'">'+html(v||'—')+'</td>';
+ const blocks=keys.map(key=>{
+  const entries=groups.get(key);
+  if(!groupTubes)entries.sort((a,b)=>{
+   if(key==='__unspliced__')return naturalSort(a.aCable,b.aCable)||naturalSort(a.aFibre,b.aFibre);
+   if(!a.position)return b.position?1:a.index-b.index;
+   if(!b.position)return -1;
+   return naturalSort(a.position,b.position)||a.index-b.index;
+  });
+  const name=key==='__unspliced__'?'Unspliced Fibres':key==='__unassigned__'?'Unassigned tray (field missing)':'Tray '+key;
+  const collapsed=collapsedTrays.has(key),candidate=key==='__unspliced__';
+  const rawCount=groupTubes?selectedScheduleRows().filter(r=>(r.tray||'__unassigned__')===key).length:entries.length;
+  const label=groupTubes?entries.length+' rows ('+rawCount+' fibres)':entries.length+' '+(candidate?'candidate fibre':'connection')+(entries.length===1?'':'s');
+  const note=candidate?'<div class="hint" style="padding:10px 12px;background:#fff8e7">These are candidate fibres with no matching Fibersplice record at this joint, from cable segments referenced by this joint. A Cable / A Fibre identify inventory fibres, not confirmed A-side splices. This does not prove the fibre is physically unspliced.</div>':'';
+  const groupNote=groupTubes?'<div class="hint" style="padding:7px 12px;background:#f4f9fc">Consecutive runs are grouped within each 12-fibre tube/ribbon, even when fewer than 12 fibres are present; all splices in a group must have the same Splice type. For splices, both A and Z must be consecutive in their own tube/ribbon; gaps, crossed connections and differing splice types split groups. Grey = 12 fibres; orange = fewer than 12. Circuit IDs are combined without circuit names or customers.</div>':'';
+  const body=entries.map(r=>{
+   const aTube=r.grouped?r.aTube:tubeNumber(r.aFibre),zTube=r.grouped?r.zTube:tubeNumber(r.zFibre);
+   const aLabel=tubeDisplayLabel(aTube,r),zLabel=tubeDisplayLabel(zTube,r);
+   return '<tr>'+cell(r.position)+cell(r.aCable)+
+    (groupTubes?cell(aLabel,aTube?(r.grouped&&r.memberCount===12?'tube-full':'tube-partial'):''):'')+
+    cell(r.aFibre,'fibre')+cell(r.splice)+cell(r.zFibre,'fibre')+
+    (groupTubes?cell(zLabel,zTube?(r.grouped&&r.memberCount===12?'tube-full':'tube-partial'):''):'')+
+    cell(r.zCable)+cell(r.circuit,'circuit')+
+    (groupTubes?'':cell(r.circuitName)+cell(r.customer))+'</tr>';
+  }).join('');
+  const domId='tray-content-'+html(key).replace(/[^a-zA-Z0-9_-]/g,'_');
+  return '<section class="tray-block"><h3><button class="tray-toggle" type="button" data-tray="'+html(key)+'" aria-expanded="'+(!collapsed)+'" aria-controls="'+domId+'"><span class="tray-chevron">'+(collapsed?'▶':'▼')+'</span><span>'+html(name)+'</span><small>'+label+'</small></button></h3>'+
+   '<div id="'+domId+'" class="tray-content"'+(collapsed?' hidden':'')+'>'+note+groupNote+'<div style="overflow:auto"><table class="live-table"><thead><tr>'+cols.map(x=>'<th>'+html(x)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section>';
+ }).join('');
+ const error=unsplicedError?'<div class="live-empty">Unspliced candidate check unavailable: '+html(unsplicedError)+'</div>':'';
+ $('circuitTable').innerHTML=(blocks||'<div class="live-empty">No matching splice connections or unspliced candidates.</div>')+error;
+ const assigned=liveRows.filter(x=>x.tray).length;
+ $('liveSummary').textContent=liveRows.length+' connections · '+new Set(liveRows.map(x=>x.tray).filter(Boolean)).size+' trays · '+(liveRows.length-assigned)+' unassigned · '+unsplicedRows.length+' unspliced candidates'+(groupTubes?' · grouped view':'');
+}
+$('circuitTable').addEventListener('click',e=>{
+ const button=e.target.closest('button.tray-toggle');
+ if(!button)return;
+ const key=button.dataset.tray;
+ if(collapsedTrays.has(key))collapsedTrays.delete(key);else collapsedTrays.add(key);
+ renderLiveSchedule();
+});
+$('expandTrays').addEventListener('click',()=>{collapsedTrays.clear();renderLiveSchedule()});
+$('collapseTrays').addEventListener('click',()=>{
+ for(const row of liveRows)collapsedTrays.add(row.tray||'__unassigned__');
+  collapsedTrays.add('__unspliced__');
+ renderLiveSchedule();
+});
+$('liveTray').addEventListener('change',renderLiveSchedule);
+$('liveFilter').addEventListener('input',renderLiveSchedule);
+$('liveCsv').addEventListener('click',()=>{
+ if(!closure){
+  $('sourceinfo').textContent='Query a joint before exporting its details and splice schedule.';
+  return;
+ }
+ // One CSV file with clearly separated sections: joint attributes, cable inventory,
+ // then the currently selected/filtered individual or grouped splice schedule.
+ const fields=[
+  ['Joint / Splice Number',['splicenumber','splice_number','name']],
+  ['Splice Location',['splicelocation']],
+  ['Manufacturer',['manufacturer']],
+  ['Model Number',['modelnumber']],
+  ['Special Condition',['special_condition']],
+  ['Status',['inventory_status_code']],
+  ['Owner / Operator',['asset_owner']],
+  ['Comments',['comments']]
+ ];
+ // In CSV, B1 is the timestamp cell when opened in Excel (both display modes).
+ const output=[['Report Created',reportCreatedAt?localReportDate(reportCreatedAt):'Not available'],[],['SPLICE JOINT DETAILS'],['Field','Value']];
+ for(const [label,keys] of fields)output.push([label,firstPresent(closure,keys)||'—']);
+ output.push([],['CABLES IN JOINT'],[
+  'Cable Name','Cable Type','Manufacturer','Fibre Count',
+  'Buffers × Fibres/Buffer','Status','Measured Length',
+  'A-side Splices','Z-side Splices','Distinct Fibre Numbers'
+ ]);
+ output.push(...cableExportRows);
+ if(!cableExportRows.length)output.push(['No referenced cables found']);
+ output.push([],['SPLICE SCHEDULE']);
+ const head=groupTubes?['Tray','Tray position','A cable','A Tube/Ribbon','A fibre','Splice','Z fibre','Z Tube/Ribbon','Z cable','Circuit ID']:
+  ['Tray','Tray position','A cable','A fibre','Splice','Z fibre','Z cable','Circuit ID','Circuit name','Customer'];
+ output.push(head);
+ const groups=displayedGroups();
+ const data=[...groups.values()].flatMap(rows=>rows.map(r=>{
+  const aTube=r.grouped?r.aTube:tubeNumber(r.aFibre),zTube=r.grouped?r.zTube:tubeNumber(r.zFibre);
+  return groupTubes?[r.tray,r.position,r.aCable,aTube?tubeDisplayLabel(aTube,r):'',r.aFibre,r.splice,r.zFibre,zTube?tubeDisplayLabel(zTube,r):'',r.zCable,r.circuit]:
+   [r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zFibre,r.zCable,r.circuit,r.circuitName,r.customer];
+ }));
+ output.push(...data);
+ if(!data.length)output.push(['No matching splice schedule rows']);
+ const csv='\uFEFF'+output.map(row=>row.map(v=>'"'+String(v??'').replace(/^[=+@\-]/,"'$&").replace(/"/g,'""')+'"').join(',')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+ const link=document.createElement('a');link.href=url;
+ link.download=($('joint').value.trim().replace(/[^\w-]/g,'_')||'Joint')+(groupTubes?'_grouped_tubes':'')+'_full_splice_report.csv';
+ link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+// Only segments explicitly referenced by this joint's Fibersplice records are in scope.
+// Layer 27 fibre IDs are compared against both endpoints of the joint's splice records.
+const strandKey=v=>{const x=String(v??'').trim();return /^\d+$/.test(x)?String(BigInt(x)):x.toLowerCase()};
+async function findUnsplicedCandidates(splices,segments,cableMap){
+ if(!segments.length)return {rows:[],scanned:0};
+ const fm=await schema(27);
+ const segmentField=findField(fm.fields||[],['segmentidfkey']);
+ const fibreField=findField(fm.fields||[],['fiberid']);
+ if(!segmentField||!fibreField)throw Error('Fiber layer 27 does not expose segmentidfkey and fiberid');
+ const fields=[segmentField,fibreField,...['bufferid','signalipid'].map(n=>findField(fm.fields||[],[n])).filter(Boolean)].join(',');
+ const parts=await parallelBatches(chunks(segments,35),part=>queryAll(27,segmentField+' IN ('+part.map(quote).join(',')+')',fields),4);
+ const found=parts.flat(),seen=new Map();
+ for(const record of splices){
+  for(const [segmentKey,fibreKey] of [['asegmentidfkey','afiberid'],['zsegmentidfkey','zfiberid']]){
+   const segment=val(record,segmentKey).trim().toLowerCase(),fiber=strandKey(val(record,fibreKey));
+   if(!segment||!fiber)continue;
+   if(!seen.has(segment))seen.set(segment,new Set());
+   seen.get(segment).add(fiber);
+  }
+ }
+ const rows=[];const unique=new Set();
+ for(const fibre of found){
+  const segment=val(fibre,segmentField).trim(),fid=val(fibre,fibreField).trim();
+  if(!segment||!fid)continue;
+  const key=segment.toLowerCase()+'|'+strandKey(fid);
+  if(unique.has(key))continue;
+  unique.add(key);
+  if(seen.get(segment.toLowerCase())?.has(strandKey(fid)))continue;
+  rows.push({segment,cable:cableMap.get(segment.toLowerCase())||'Unresolved: '+segment,
+   fibre:fid,buffer:val(fibre,'bufferid'),signal:val(fibre,'signalipid')});
+ }
+ return {rows,scanned:unique.size};
+}
+async function querySplices(){try{
+ reportCreatedAt=null;updateReportTitle();
+ const started=performance.now();
+ liveRows=[];unsplicedRows=[];unsplicedError='';$('circuitTable').innerHTML='<div class="live-empty">Loading live connections…</div>';$('liveSummary').textContent='Loading…';
+ status('Finding joint…');await queryJoint();if(!closure)throw Error('Joint not found or multiple joints matched. Check the joint name.');status('Querying Fibersplice…');
+ // Metadata is cached and all three layer schemas can be requested together.
+ const [meta,sm,cm]=await Promise.all([schema(29),schema(30),schema(7)]);
+ const f=findField(meta.fields||[],['spliceclosureipid','spliceclosureipidfkey']),id=val(closure,'ipid');
+ if(!f||!id)throw Error('Unable to map spliceclosureipid to joint ipid. Check service fields.');
+ // Fetch only columns used by the table. ArcGIS may use alternate tray naming.
+ const required=['splicetype','signalipid','asegmentidfkey','zsegmentidfkey','afiberid','zfiberid',
+ ...trayNames,...positionNames];
+ const selected=(meta.fields||[]).filter(x=>required.includes(x.name.toLowerCase())).map(x=>x.name).join(',')||'*';
+ const all=await queryAll(29,f+' = '+quote(id),selected);
+ const ids=[...new Set(all.map(r=>val(r,'signalipid').trim()).filter(Boolean))];
+ const segments=[...new Set(all.flatMap(r=>[val(r,'asegmentidfkey'),val(r,'zsegmentidfkey')]).map(x=>x.trim()).filter(Boolean))];
+ const signalMap=new Map(),cableMap=new Map(),cableAttributes=new Map();
+ const sf=findField(sm.fields||[],['ipid']);
+ const cf=findField(cm.fields||[],['segmentid']),nf=findField(cm.fields||[],['cable_name']);
+ if(ids.length&&!sf)throw Error('Signal layer 30 has no ipid field');
+ if(segments.length&&(!cf||!nf))throw Error('FiberCable layer 7 must contain segmentid and cable_name fields');
+ const wanted=['ipid','circuitid','circuitname','customer','customername','customer_name'];
+ const signalFields=(sm.fields||[]).filter(x=>wanted.includes(x.name.toLowerCase())).map(x=>x.name).join(',')||'*';
+ const cableFieldsWanted=['segmentid','cable_name','cabletype','manufacturer','fibercount','buffercount','fibersperbuffer','inventory_status_code','measuredlength'];
+ const cableFields=(cm.fields||[]).filter(x=>cableFieldsWanted.includes(x.name.toLowerCase())).map(x=>x.name).join(',')||'*';
+ status('Resolving '+ids.length+' Signal IPIDs and '+segments.length+' cable segments in parallel…');
+ // Independent Signal and FiberCable queries run concurrently; batches within each
+ // layer are also parallel, with bounded concurrency to protect ArcGIS Server.
+ const [signalParts,cableParts]=await Promise.all([
+  parallelBatches(chunks(ids,40),part=>queryAll(30,sf+' IN ('+part.map(quote).join(',')+')',signalFields),5),
+  parallelBatches(chunks(segments,35),part=>queryAll(7,cf+' IN ('+part.map(quote).join(',')+')',cableFields),5)
+ ]);
+ for(const sig of signalParts.flat()){const key=val(sig,'ipid').trim().toLowerCase();if(!signalMap.has(key))signalMap.set(key,[]);signalMap.get(key).push(sig)}
+ for(const cable of cableParts.flat()){const key=val(cable,cf).trim().toLowerCase();if(key){cableMap.set(key,val(cable,nf)||'(Unnamed cable)');cableAttributes.set(key,cable)}}
+ renderCableDetails(all,cableMap,cableAttributes);buildLiveRows(all,signalMap,cableMap);
+ // Keep the main splice schedule usable even when Layer 27 is unavailable.
+ let candidateNote='';
+ try{
+  status('Checking individual fibres in '+segments.length+' referenced cable segments…');
+  const check=await findUnsplicedCandidates(all,segments,cableMap);
+  unsplicedRows=check.rows;
+   // Resolve any circuits associated with inventory fibre signal IPIDs, using the same Signal layer.
+   const candidateIds=[...new Set(unsplicedRows.map(r=>r.signal?.trim()).filter(Boolean))].filter(id=>!signalMap.has(id.toLowerCase()));
+   if(candidateIds.length){
+    try{
+     const extra=await parallelBatches(chunks(candidateIds,40),part=>queryAll(30,sf+' IN ('+part.map(quote).join(',')+')',signalFields),5);
+     for(const sig of extra.flat()){
+      const key=val(sig,'ipid').trim().toLowerCase();if(!signalMap.has(key))signalMap.set(key,[]);signalMap.get(key).push(sig);
+     }
+    }catch(e){console.warn('Candidate fibre signal lookup incomplete:',e)}
+   }
+   for(const r of unsplicedRows){
+    const signals=signalMap.get((r.signal||'').trim().toLowerCase())||[];
+    r.circuit=circuitUnique(signals.map(x=>val(x,'circuitid')));
+    r.circuitName=circuitUnique(signals.map(x=>val(x,'circuitname')));
+    r.customer=circuitUnique(signals.map(x=>val(x,'customer','customername','customer_name')));
+   }
+   renderLiveSchedule();
+  candidateNote='; '+unsplicedRows.length+' unspliced candidates from '+check.scanned+' fibres checked';
+ }catch(e){unsplicedRows=[];unsplicedError=e.message;renderLiveSchedule();candidateNote='; fibre candidate check unavailable';}
+ const elapsed=((performance.now()-started)/1000).toFixed(1);
+ reportCreatedAt=new Date();updateReportTitle();
+ status(all.length+' splice records; '+signalMap.size+' matched Signal IPIDs; '+cableMap.size+'/'+segments.length+' cable segments resolved'+candidateNote+' in '+elapsed+'s.');
+ $('sourceinfo').textContent='Joint details and cable inventory loaded. Splice connections are grouped by tray below.';
+ }catch(e){reportCreatedAt=null;updateReportTitle();$('circuitTable').innerHTML='<div class="live-empty">Query failed; no live splice data displayed.</div>';status('Splice/circuit query failed: '+e.message);$('sourceinfo').textContent='Query failed: '+e.message}}
+$('querysplices').onclick=async()=>{const button=$('querysplices');button.disabled=true;try{await querySplices()}finally{button.disabled=false}}; $('joint').addEventListener('keydown',e=>{if(e.key==='Enter')$('querysplices').click()}); initializeOAuth();
+</script></body></html>
