@@ -65,7 +65,11 @@
 @media(max-width:650px){
   .joint-section{width:calc(100% - 24px);padding:15px 12px;margin-top:12px}
 }
-</style></head><body><header><h1>Fibre Splice Tray Viewer</h1><p>Live ArcGIS splice schedule · Tray groups and unspliced fibre candidates</p></header><div class="auth"><label class="auth-config-hidden">ArcGIS Portal URL<input id="portal" value="https://arcgis.fibreconx.com.au/portal"/></label><label class="auth-config-hidden">OAuth App ID<input id="clientid" value="j61ihett8O71eFQI"/></label><button id="signin">Sign in to ArcGIS</button><button disabled="" id="signout">Sign out</button><label>Alternative: temporary token<input autocomplete="off" id="manualToken" placeholder="Token (not saved)" type="password"/></label><button id="useToken">Use token</button></div><section aria-label="Splice joint details" class="joint-section">
+/* Authenticated username shown above the ArcGIS sign-in control. */
+.auth .signin-stack{display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;align-self:center}
+.auth .signed-in-user{font-size:12px;font-weight:700;color:#187345;max-width:280px;overflow-wrap:anywhere}
+.auth .signed-in-user[hidden]{display:none!important}
+</style></head><body><header><h1>Fibre Splice Tray Viewer</h1><p>Live ArcGIS splice schedule · Tray groups and unspliced fibre candidates</p></header><div class="auth"><label class="auth-config-hidden">ArcGIS Portal URL<input id="portal" value="https://arcgis.fibreconx.com.au/portal"/></label><label class="auth-config-hidden">OAuth App ID<input id="clientid" value="j61ihett8O71eFQI"/></label><span class="signin-stack"><span id="signedInUser" class="signed-in-user" role="status" aria-live="polite" hidden></span><button id="signin">Sign in to ArcGIS</button></span><button disabled="" id="signout">Sign out</button><label>Alternative: temporary token<input autocomplete="off" id="manualToken" placeholder="Token (not saved)" type="password"/></label><button id="useToken">Use token</button></div><section aria-label="Splice joint details" class="joint-section">
 <div class="joint-section-head"><div><h2>Splice Joint Details</h2><p>Search for a joint to view its details, referenced cables and live splice connections.</p></div><span class="joint-query-status" id="jointQueryStatus">No joint loaded</span></div>
 <div class="joint-search"><label class="wide">Joint name / splice number<input id="joint" placeholder="Enter joint name / splice number" value=""/></label><button id="querysplices">Create Report</button><span class="authstatus query-inline-status" id="authstatus" role="status" aria-live="polite">Not signed in</span></div>
 <div aria-live="polite" class="joint-details" id="jointDetails"><div class="joint-empty">Query a joint to display its properties.</div></div>
@@ -84,16 +88,33 @@ function localReportDate(date){return date.toLocaleString('en-AU',{day:'2-digit'
 function updateReportTitle(){ $('reportTitle').textContent='Joint - Splice Report'+(reportCreatedAt?' — '+localReportDate(reportCreatedAt):''); }
 function status(msg){$('authstatus').textContent=msg}
 function setAuth(msg){status(msg);$('signout').disabled=!authToken}
+function showSignedInUser(userId){const label=$('signedInUser');const name=String(userId||'').trim();label.textContent=name?'Signed in as '+name:'Token active · User ID unavailable';label.hidden=!authToken;}
+async function identifyTokenUser(token, fallbackUserId){
+  if(fallbackUserId){if(authToken===token)showSignedInUser(fallbackUserId);return;}
+  // A manually supplied server token may not allow access to the Portal profile endpoint.
+  // Failure to look up the username must never block a working MapServer token.
+  try{
+    const portalUrl=$('portal').value.replace(/\/$/,'');
+    const body=new URLSearchParams({f:'json',token});
+    const response=await fetch(portalUrl+'/sharing/rest/community/self',{
+      method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body,credentials:'omit'});
+    const profile=await response.json();
+    if(authToken!==token)return;
+    const username=profile.username||profile.user?.username||profile.userId;
+    showSignedInUser(username||'');
+  }catch(_error){if(authToken===token)showSignedInUser('');}
+}
 function loadSdk(){return new Promise((resolve,reject)=>{if(window.require&&window.require.toUrl)return resolve();const el=document.createElement('script');el.src='https://js.arcgis.com/4.32/';el.onload=resolve;el.onerror=()=>reject(Error('Could not load ArcGIS Maps SDK. Check hosting CSP.'));document.head.appendChild(el)})}
 async function initializeOAuth(){try{await loadSdk();window.require(['esri/identity/IdentityManager','esri/identity/OAuthInfo'],(esriId,OAuthInfo)=>{identityManager=esriId;
  const portalUrl=$('portal').value.replace(/\/$/,'');const appId=$('clientid').value.trim();
  if(!appId){$('signin').disabled=true;status('Enter an OAuth App ID or use a temporary token.');return}
  esriId.registerOAuthInfos([new OAuthInfo({appId,portalUrl,popup:false})]);const sharing=portalUrl+'/sharing';
- esriId.checkSignInStatus(sharing).then(c=>{authToken=c.token;setAuth('Portal signed in (session restored)')}).catch(()=>{if(!authToken)setAuth('Not signed in')});
- $('signin').addEventListener('click',async()=>{try{status('Redirecting to ArcGIS Portal…');const c=await esriId.getCredential(sharing);authToken=c.token;setAuth('Portal signed in')}catch(e){status('Sign-in failed: '+e.message)}});
+ esriId.checkSignInStatus(sharing).then(c=>{authToken=c.token;setAuth('Portal signed in (session restored)');identifyTokenUser(c.token,c.userId)}).catch(()=>{if(!authToken)setAuth('Not signed in')});
+ $('signin').addEventListener('click',async()=>{try{status('Redirecting to ArcGIS Portal…');const c=await esriId.getCredential(sharing);authToken=c.token;setAuth('Portal signed in');identifyTokenUser(c.token,c.userId)}catch(e){status('Sign-in failed: '+e.message)}});
  },err=>status('ArcGIS SDK failed: '+err.message))}catch(e){status('ArcGIS SDK unavailable: '+e.message)}}
-$('useToken').addEventListener('click',()=>{const token=$('manualToken').value.trim();$('manualToken').value='';if(!token){status('Paste a temporary token first.');return}authToken=token;setAuth('Temporary token active (memory only)')});
-$('signout').addEventListener('click',()=>{if(identityManager)identityManager.destroyCredentials();authToken='';closure=null;setAuth('Not signed in')});
+$('useToken').addEventListener('click',()=>{const token=$('manualToken').value.trim();$('manualToken').value='';if(!token){status('Paste a temporary token first.');return}authToken=token;setAuth('Temporary token active (memory only)');identifyTokenUser(token)});
+$('signout').addEventListener('click',()=>{if(identityManager)identityManager.destroyCredentials();authToken='';closure=null;$('signedInUser').hidden=true;$('signedInUser').textContent='';setAuth('Not signed in')});
 async function rest(url,params={}){if(!authToken)throw Error('Sign in to ArcGIS Portal or use a temporary token first');const body=new URLSearchParams({...params,f:'json',token:authToken});let r;try{r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body,credentials:'omit'})}catch(e){throw Error('ArcGIS request blocked. Check browser CSP/CORS and hosting. '+e.message)}if(!r.ok)throw Error('HTTP '+r.status+' (check CORS / service access)');const j=await r.json();if(j.error){if(j.error.code===498||j.error.code===499)throw Error('ArcGIS token expired or not accepted by MapServer. Sign in again.');throw Error(j.error.message+' '+(j.error.details||[]).join(' '))}return j}
 // Cache layer metadata (including in-flight requests) to avoid repeated REST calls.
 const schemaCache=new Map();
