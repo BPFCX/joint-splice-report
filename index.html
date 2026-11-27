@@ -72,7 +72,7 @@
 
 .live-table td.comments{max-width:320px;white-space:normal;overflow-wrap:anywhere;vertical-align:top}
 /* Consistent grouped Tube/Ribbon column alignment across every tray. */
-.live-table.grouped-aligned{table-layout:fixed;min-width:1280px}
+.live-table.grouped-aligned{table-layout:fixed;min-width:1520px}
 .live-table.grouped-aligned th,.live-table.grouped-aligned td{box-sizing:border-box;overflow:hidden;text-overflow:ellipsis}
 .live-table.grouped-aligned td.circuit{white-space:normal;overflow-wrap:anywhere;word-break:normal}
 </style></head><body><header><h1>Fibre Splice Tray Viewer <small style="font-size:13px;font-weight:normal;color:#d8e5f0">V4</small></h1><p>Live ArcGIS splice schedule · Tray groups and unspliced fibre candidates</p></header><div class="auth"><label class="auth-config-hidden">ArcGIS Portal URL<input id="portal" value="https://arcgis.fibreconx.com.au/portal"/></label><label class="auth-config-hidden">OAuth App ID<input id="clientid" value="j61ihett8O71eFQI"/></label><span class="signin-stack"><span id="signedInUser" class="signed-in-user" role="status" aria-live="polite" hidden></span><button id="signin">Sign in to ArcGIS</button></span><button disabled="" id="signout">Sign out</button><label>Alternative: temporary token<input autocomplete="off" id="manualToken" placeholder="Token (not saved)" type="password"/></label><button id="useToken">Use token</button></div><section aria-label="Splice joint details" class="joint-section">
@@ -281,6 +281,18 @@ function mergedCircuits(rows){
  return [...new Set(rows.flatMap(r=>String(r.circuit||'').split(',')).map(x=>x.trim()).filter(Boolean))]
   .sort(naturalSort).join(', ');
 }
+function mergedComments(rows){
+ const seen=new Set(), values=[];
+ for(const row of rows){
+  const value=String(row.comments??'').trim();
+  if(!value)continue;
+  const key=value.toLocaleLowerCase();
+  if(seen.has(key))continue;
+  seen.add(key);
+  values.push(value);
+ }
+ return values.join(' | ');
+}
 function groupingKey(r){
  const a=tubeNumber(r.aFibre),z=tubeNumber(r.zFibre);
  if(!a||!r.aCable)return null;
@@ -310,7 +322,7 @@ function groupedEntries(entries){
    aTube:tubeNumber(first.aFibre),zTube:unspliced?null:tubeNumber(first.zFibre),
    aFibre:first.aFibre+'-'+last.aFibre,
    zFibre:unspliced?'':first.zFibre+'-'+last.zFibre,
-   splice:spliceNames.join(', '),circuit:mergedCircuits(rows),circuitName:'',customer:'',comments:''});
+   splice:spliceNames.join(', '),circuit:mergedCircuits(rows),circuitName:'',customer:'',comments:mergedComments(rows)});
  }
  for(const rows of buckets.values()){
   const unspliced=rows[0].tray==='__unspliced__';
@@ -355,7 +367,7 @@ function renderLiveSchedule(){
  const groups=displayedGroups();
  // Always place Unspliced Fibres below Unassigned tray, after numbered trays.
  const keys=[...groups.keys()].sort((a,b)=>a==='__unspliced__'?1:b==='__unspliced__'?-1:a==='__unassigned__'?1:b==='__unassigned__'?-1:naturalSort(a,b));
- const cols=groupTubes?['Position','A Cable','A Tube/Ribbon','A Fibre','Splice','Z Fibre','Z Tube/Ribbon','Z Cable','Circuit ID']:
+ const cols=groupTubes?['Position','A Cable','A Tube/Ribbon','A Fibre','Splice','Z Fibre','Z Tube/Ribbon','Z Cable','Circuit ID','Comments']:
   ['Position','A Cable','A Fibre','Splice','Z Fibre','Z Cable','Circuit ID','Circuit Name','Customer','Comments'];
  const cell=(v,className='')=>'<td class="'+(v?'':'blank ')+className+'">'+html(v||'—')+'</td>';
  const blocks=keys.map(key=>{
@@ -371,7 +383,7 @@ function renderLiveSchedule(){
   const rawCount=groupTubes?selectedScheduleRows().filter(r=>(r.tray||'__unassigned__')===key).length:entries.length;
   const label=groupTubes?entries.length+' rows ('+rawCount+' fibres)':entries.length+' '+(candidate?'candidate fibre':'connection')+(entries.length===1?'':'s');
   const note=candidate?'<div class="hint" style="padding:10px 12px;background:#fff8e7">These are candidate fibres with no matching Fibersplice record at this joint, from cable segments referenced by this joint. A Cable / A Fibre identify inventory fibres, not confirmed A-side splices. This does not prove the fibre is physically unspliced.</div>':'';
-  const groupNote=groupTubes?'<div class="hint" style="padding:7px 12px;background:#f4f9fc">Consecutive runs are grouped within each 12-fibre tube/ribbon, even when fewer than 12 fibres are present; all splices in a group must have the same Splice type. For splices, both A and Z must be consecutive in their own tube/ribbon; gaps, crossed connections and differing splice types split groups. Grey = 12 fibres; orange = fewer than 12. Circuit IDs are combined without circuit names or customers.</div>':'';
+  const groupNote=groupTubes?'<div class="hint" style="padding:7px 12px;background:#f4f9fc">Consecutive runs are grouped within each 12-fibre tube/ribbon, even when fewer than 12 fibres are present; all splices in a group must have the same Splice type. For splices, both A and Z must be consecutive in their own tube/ribbon; gaps, crossed connections and differing splice types split groups. Grey = 12 fibres; orange = fewer than 12. Circuit IDs and distinct Signal comments are combined without circuit names or customers.</div>':'';
   const body=entries.map(r=>{
    const aTube=r.grouped?r.aTube:tubeNumber(r.aFibre),zTube=r.grouped?r.zTube:tubeNumber(r.zFibre);
    const aLabel=tubeDisplayLabel(aTube,r),zLabel=tubeDisplayLabel(zTube,r);
@@ -380,11 +392,11 @@ function renderLiveSchedule(){
     cell(r.aFibre,'fibre')+cell(r.splice)+cell(r.zFibre,'fibre')+
     (groupTubes?cell(zLabel,zTube?(r.grouped&&r.memberCount===12?'tube-full':'tube-partial'):''):'')+
     cell(r.zCable)+cell(r.circuit,'circuit')+
-    (groupTubes?'':cell(r.circuitName)+cell(r.customer)+cell(r.comments,'comments'))+'</tr>';
+    (groupTubes?cell(r.comments,'comments'):cell(r.circuitName)+cell(r.customer)+cell(r.comments,'comments'))+'</tr>';
   }).join('');
   const domId='tray-content-'+html(key).replace(/[^a-zA-Z0-9_-]/g,'_');
   return '<section class="tray-block"><h3><button class="tray-toggle" type="button" data-tray="'+html(key)+'" aria-expanded="'+(!collapsed)+'" aria-controls="'+domId+'"><span class="tray-chevron">'+(collapsed?'▶':'▼')+'</span><span>'+html(name)+'</span><small>'+label+'</small></button></h3>'+
-   '<div id="'+domId+'" class="tray-content"'+(collapsed?' hidden':'')+'>'+note+groupNote+'<div style="overflow:auto"><table class="live-table'+(groupTubes?' grouped-aligned':'')+'">'+(groupTubes?'<colgroup><col style="width:6%"><col style="width:16%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:10%"><col style="width:16%"><col style="width:15%"></colgroup>':'')+'<thead><tr>'+cols.map(x=>'<th>'+html(x)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section>';
+   '<div id="'+domId+'" class="tray-content"'+(collapsed?' hidden':'')+'>'+note+groupNote+'<div style="overflow:auto"><table class="live-table'+(groupTubes?' grouped-aligned':'')+'">'+(groupTubes?'<colgroup><col style="width:5%"><col style="width:13%"><col style="width:9%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:9%"><col style="width:13%"><col style="width:12%"><col style="width:15%"></colgroup>':'')+'<thead><tr>'+cols.map(x=>'<th>'+html(x)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section>';
  }).join('');
  const error=unsplicedError?'<div class="live-empty">Unspliced candidate check unavailable: '+html(unsplicedError)+'</div>':'';
  $('circuitTable').innerHTML=(blocks||'<div class="live-empty">No matching splice connections or unspliced candidates.</div>')+error;
@@ -434,13 +446,13 @@ $('liveCsv').addEventListener('click',()=>{
  output.push(...cableExportRows);
  if(!cableExportRows.length)output.push(['No referenced cables found']);
  output.push([],['SPLICE SCHEDULE']);
- const head=groupTubes?['Tray','Tray position','A cable','A Tube/Ribbon','A fibre','Splice','Z fibre','Z Tube/Ribbon','Z cable','Circuit ID']:
+ const head=groupTubes?['Tray','Tray position','A cable','A Tube/Ribbon','A fibre','Splice','Z fibre','Z Tube/Ribbon','Z cable','Circuit ID','Comments']:
   ['Tray','Tray position','A cable','A fibre','Splice','Z fibre','Z cable','Circuit ID','Circuit name','Customer','Comments'];
  output.push(head);
  const groups=displayedGroups();
  const data=[...groups.values()].flatMap(rows=>rows.map(r=>{
   const aTube=r.grouped?r.aTube:tubeNumber(r.aFibre),zTube=r.grouped?r.zTube:tubeNumber(r.zFibre);
-  return groupTubes?[r.tray,r.position,r.aCable,aTube?tubeDisplayLabel(aTube,r):'',r.aFibre,r.splice,r.zFibre,zTube?tubeDisplayLabel(zTube,r):'',r.zCable,r.circuit]:
+  return groupTubes?[r.tray,r.position,r.aCable,aTube?tubeDisplayLabel(aTube,r):'',r.aFibre,r.splice,r.zFibre,zTube?tubeDisplayLabel(zTube,r):'',r.zCable,r.circuit,r.comments]:
    [r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zFibre,r.zCable,r.circuit,r.circuitName,r.customer,r.comments];
  }));
  output.push(...data);
