@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Joint - Splice Report</title><style>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Joint Splice Report V4</title><style>
 :root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#172538;background:#f3f6fa}*{box-sizing:border-box}body{margin:0}header{background:#102943;color:white;padding:22px 30px}h1{margin:0 0 6px;font-size:23px}header p{margin:0;color:#b8cfe1}.toolbar{display:flex;gap:12px;align-items:end;flex-wrap:wrap;padding:18px 28px;background:white;border-bottom:1px solid #dce4ed}label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;color:#526276}select,input,button{font:inherit;border:1px solid #cbd5e1;border-radius:7px;padding:9px 12px;background:white;color:#172538}button{cursor:pointer;background:#1263a5;color:white;border:0}button.secondary{background:#eaf1f8;color:#204664}.wrap{padding:22px 28px;max-width:1700px;margin:auto}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:17px}.card{background:white;border:1px solid #e0e7ef;border-radius:9px;padding:13px 18px;min-width:160px}.card strong{display:block;font-size:23px}.card span{font-size:12px;color:#65788c}.panel{background:white;border:1px solid #dce4ed;border-radius:12px;overflow:hidden}.panelhead{padding:18px 20px;border-bottom:1px solid #e1e8ef;display:flex;justify-content:space-between;align-items:center;gap:15px}.panelhead h2{margin:0;font-size:19px}.hint{font-size:12px;color:#60758b}.grid{overflow:auto;padding:16px}.columnheads,.row{display:grid;grid-template-columns:minmax(220px,1fr) 72px minmax(260px,1.1fr) 72px minmax(220px,1fr);gap:9px;align-items:center;min-width:940px}.columnheads{font-size:12px;text-transform:uppercase;color:#65788c;font-weight:700;margin-bottom:8px;text-align:center}.row{border-radius:7px;padding:5px 4px;min-height:53px}.row:nth-child(even){background:#f5f7fa}.endpoint{padding:8px 12px;border:1px solid #dbe5ee;border-radius:7px;background:white;min-height:46px}.endpoint b{font-size:13px}.endpoint small{display:block;font-size:11px;color:#62788d;margin-top:3px}.endpoint.empty{color:#9aa8b5;border-style:dashed}.pos{text-align:center;font-weight:700;color:#50667b}.connector{position:relative;height:34px}.connector:before{content:"";position:absolute;top:16px;left:0;right:0;border-top:3px solid #1b9b82}.connector:after{content:"";position:absolute;top:11px;left:50%;width:10px;height:10px;background:#1b9b82;border-radius:50%;transform:translateX(-50%)}.connector.open:before{border-top:3px dashed #c4ced9}.connector.open:after{background:#c4ced9}.badge{display:inline-block;font-size:10px;background:#e1f5ed;color:#117251;padding:3px 6px;border-radius:4px;margin-left:5px}.notice{margin-top:14px;color:#6b7890;font-size:12px;line-height:1.6}footer{padding:15px 28px;color:#718297;font-size:12px}@media print{header,.toolbar,.notice,footer{display:none}.wrap{padding:0}.panel{border:0}.grid{overflow:visible}.row{break-inside:avoid}}@media(max-width:650px){.toolbar,.wrap{padding:12px}.panelhead{display:block}}
  .live-tools{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:0 0 14px}.live-tools label{min-width:175px}.live-tools input{min-width:250px}.tray-block{margin:16px 0 22px;border:1px solid #d6e2ed;border-radius:9px;overflow:hidden;background:#fff}.tray-block h3{margin:0;background:#eaf1f8;color:#193f60;padding:12px 14px;font-size:15px;display:flex;justify-content:space-between}.tray-block h3 small{font-weight:400;color:#587086}.live-table{width:100%;border-collapse:collapse;font-size:12px}.live-table th{position:sticky;top:0;background:#f3f7fb;text-align:left;padding:10px 9px;white-space:nowrap;border-bottom:2px solid #c9d9e8}.live-table td{padding:9px;border-bottom:1px solid #e0e7ed;white-space:nowrap}.live-table tbody tr:nth-child(even){background:#f7f9fb}.live-table td.fibre{font-weight:700}.live-table td.blank{color:#8794a2}.live-table td.circuit{color:#0c608e}.live-empty{padding:14px;color:#65788c}.auth{padding:14px 28px;background:#eaf2fb;border-bottom:1px solid #cbd8e7;display:flex;gap:10px;flex-wrap:wrap;align-items:end}.auth .wide{min-width:290px;flex:1}.authstatus{font-size:12px;color:#244f73;align-self:center}.auth input{max-width:100%}.tray-block h3{padding:0}.tray-toggle{width:100%;padding:12px 14px;background:#eaf1f8;color:#193f60;border-radius:0;display:flex;gap:10px;align-items:center;text-align:left;font-size:15px;font-weight:700}.tray-toggle:hover{background:#daeaf7}.tray-toggle small{margin-left:auto;font-size:12px;font-weight:400;color:#587086}.tray-chevron{width:16px;font-size:13px}.tray-content[hidden]{display:none}@media print{.tray-content[hidden]{display:block!important}.tray-toggle{color:#193f60!important;background:#eaf1f8!important}}.candidate-group{border:1px solid #d6e2ed;border-radius:8px;margin:12px 0;overflow:hidden}.candidate-group .tray-toggle{background:#f0f5fa}.candidate-status{color:#825919;font-weight:600}.live-table td.tube-full{background:#e9ecef;color:#344054;font-weight:700;white-space:nowrap}.live-table td.tube-partial{background:#ffe6c7;color:#784415;font-weight:700;white-space:nowrap}.partial-note{font-size:11px;color:#8b5c1c}.group-hint{font-size:12px;color:#5b7187;flex-basis:100%}#groupTubes[aria-pressed="true"]{background:#166b54;color:#fff}.source{background:#fff7e6;padding:9px 28px;font-size:12px;color:#72521b} 
 /* Joint search and inventory section — V16.1 */
@@ -69,14 +69,20 @@
 .auth .signin-stack{display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;align-self:center}
 .auth .signed-in-user{font-size:12px;font-weight:700;color:#187345;max-width:280px;overflow-wrap:anywhere}
 .auth .signed-in-user[hidden]{display:none!important}
-</style></head><body><header><h1>Fibre Splice Tray Viewer</h1><p>Live ArcGIS splice schedule · Tray groups and unspliced fibre candidates</p></header><div class="auth"><label class="auth-config-hidden">ArcGIS Portal URL<input id="portal" value="https://arcgis.fibreconx.com.au/portal"/></label><label class="auth-config-hidden">OAuth App ID<input id="clientid" value="j61ihett8O71eFQI"/></label><span class="signin-stack"><span id="signedInUser" class="signed-in-user" role="status" aria-live="polite" hidden></span><button id="signin">Sign in to ArcGIS</button></span><button disabled="" id="signout">Sign out</button><label>Alternative: temporary token<input autocomplete="off" id="manualToken" placeholder="Token (not saved)" type="password"/></label><button id="useToken">Use token</button></div><section aria-label="Splice joint details" class="joint-section">
+
+.live-table td.comments{max-width:320px;white-space:normal;overflow-wrap:anywhere;vertical-align:top}
+/* Consistent grouped Tube/Ribbon column alignment across every tray. */
+.live-table.grouped-aligned{table-layout:fixed;min-width:1280px}
+.live-table.grouped-aligned th,.live-table.grouped-aligned td{box-sizing:border-box;overflow:hidden;text-overflow:ellipsis}
+.live-table.grouped-aligned td.circuit{white-space:normal;overflow-wrap:anywhere;word-break:normal}
+</style></head><body><header><h1>Fibre Splice Tray Viewer <small style="font-size:13px;font-weight:normal;color:#d8e5f0">V4</small></h1><p>Live ArcGIS splice schedule · Tray groups and unspliced fibre candidates</p></header><div class="auth"><label class="auth-config-hidden">ArcGIS Portal URL<input id="portal" value="https://arcgis.fibreconx.com.au/portal"/></label><label class="auth-config-hidden">OAuth App ID<input id="clientid" value="j61ihett8O71eFQI"/></label><span class="signin-stack"><span id="signedInUser" class="signed-in-user" role="status" aria-live="polite" hidden></span><button id="signin">Sign in to ArcGIS</button></span><button disabled="" id="signout">Sign out</button><label>Alternative: temporary token<input autocomplete="off" id="manualToken" placeholder="Token (not saved)" type="password"/></label><button id="useToken">Use token</button></div><section aria-label="Splice joint details" class="joint-section">
 <div class="joint-section-head"><div><h2>Splice Joint Details</h2><p>Search for a joint to view its details, referenced cables and live splice connections.</p></div><span class="joint-query-status" id="jointQueryStatus">No joint loaded</span></div>
 <div class="joint-search"><label class="wide">Joint name / splice number<input id="joint" placeholder="Enter joint name / splice number" value=""/></label><button id="querysplices">Create Report</button><span class="authstatus query-inline-status" id="authstatus" role="status" aria-live="polite">Not signed in</span></div>
 <div aria-live="polite" class="joint-details" id="jointDetails"><div class="joint-empty">Query a joint to display its properties.</div></div>
 <div aria-live="polite" class="joint-cables" id="jointCables"><div class="joint-empty">Cable information will appear after querying the joint.</div></div>
 <div class="query-message" id="sourceinfo" role="status">Paste a temporary ArcGIS token, then search for a joint.</div>
 </section><main class="wrap">
-<section class="panel" style="margin-top:18px"><div class="panelhead"><h2 id="reportTitle">Joint - Splice Report</h2><span class="hint">SpliceClosure (1) / Fibersplice (29) / FiberCable (7) / Signal (30) / Fiber (27)</span></div><div class="grid"><div class="live-tools"><label>Live tray <select id="liveTray"><option value="all">All trays</option></select></label><label>Filter live connections <input id="liveFilter" placeholder="Cable, fibre, circuit, customer"/></label><button aria-pressed="false" class="secondary" id="groupTubes" type="button">Group tubes/Ribbons</button><button class="secondary" id="expandTrays" type="button">Expand all trays</button><button class="secondary" id="collapseTrays" type="button">Minimise all trays</button><button class="secondary" id="liveCsv">Export joint + schedule CSV</button><span class="hint" id="liveSummary">No live records loaded</span></div><div id="circuitTable" style="overflow-x:auto;margin-bottom:16px"></div><div id="live" style="font-size:13px">Enter a joint and select Create Report to load the live schedule.</div></div> </section>
+<section class="panel" style="margin-top:18px"><div class="panelhead"><h2 id="reportTitle">Joint - Splice Report</h2><span class="hint">SpliceClosure (1) / Fibersplice (29) / FiberCable (7) / Signal (30) / Fiber (27)</span></div><div class="grid"><div class="live-tools"><label>Live tray <select id="liveTray"><option value="all">All trays</option></select></label><label>Filter live connections <input id="liveFilter" placeholder="Cable, fibre, circuit, customer, comments"/></label><button aria-pressed="false" class="secondary" id="groupTubes" type="button">Group tubes/Ribbons</button><button class="secondary" id="expandTrays" type="button">Expand all trays</button><button class="secondary" id="collapseTrays" type="button">Minimise all trays</button><button class="secondary" id="liveCsv">Export joint + schedule CSV</button><span class="hint" id="liveSummary">No live records loaded</span></div><div id="circuitTable" style="overflow-x:auto;margin-bottom:16px"></div><div id="live" style="font-size:13px">Enter a joint and select Create Report to load the live schedule.</div></div> </section>
 </main><footer>FibreConX · Live splice tray viewer</footer><script>
 // Authentication adapted from FibreconX Cable Fibre & Circuit Viewer V11.
 // ArcGIS Maps SDK IdentityManager + OAuthInfo (redirect flow), with temporary token fallback.
@@ -232,7 +238,8 @@ function buildLiveRows(splices,signalMap,cableMap){
    zCable:cableName(val(r,'zsegmentidfkey')),zFibre:val(r,'zfiberid'),
    circuit:circuitUnique(signal.map(x=>val(x,'circuitid'))),
    circuitName:circuitUnique(signal.map(x=>val(x,'circuitname'))),
-   customer:circuitUnique(signal.map(x=>val(x,'customer','customername','customer_name')))};
+   customer:circuitUnique(signal.map(x=>val(x,'customer','customername','customer_name'))),
+   comments:circuitUnique(signal.map(x=>val(x,'comments')))};
  });
  const trays=[...new Set(liveRows.map(x=>x.tray).filter(Boolean))].sort(naturalSort);
  const traySelect=$('liveTray');traySelect.innerHTML='<option value="all">All trays</option>'+
@@ -244,7 +251,7 @@ function buildLiveRows(splices,signalMap,cableMap){
 function naturalSort(a,b){return String(a).localeCompare(String(b),undefined,{numeric:true,sensitivity:'base'})}
 function candidateAsScheduleRow(r){
  return {index:0,tray:'__unspliced__',position:'',aCable:r.cable,aFibre:r.fibre,
-  splice:'',zFibre:'',zCable:'',circuit:r.circuit||'',circuitName:r.circuitName||'',customer:r.customer||'',
+  splice:'',zFibre:'',zCable:'',circuit:r.circuit||'',circuitName:r.circuitName||'',customer:r.customer||'',comments:r.comments||'',
   buffer:r.buffer||'',segment:r.segment||''};
 }
 function selectedScheduleRows(){
@@ -253,7 +260,7 @@ function selectedScheduleRows(){
  return all.filter(r=>{
   const key=r.tray||'__unassigned__';
   if(choice!=='all'&&key!==choice)return false;
-  return !query||[r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zCable,r.zFibre,r.circuit,r.circuitName,r.customer,r.buffer,r.segment].some(x=>String(x||'').toLowerCase().includes(query));
+  return !query||[r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zCable,r.zFibre,r.circuit,r.circuitName,r.customer,r.comments,r.buffer,r.segment].some(x=>String(x||'').toLowerCase().includes(query));
  });
 }
 // Group within each 12-fibre tube, allowing shorter consecutive runs.
@@ -303,7 +310,7 @@ function groupedEntries(entries){
    aTube:tubeNumber(first.aFibre),zTube:unspliced?null:tubeNumber(first.zFibre),
    aFibre:first.aFibre+'-'+last.aFibre,
    zFibre:unspliced?'':first.zFibre+'-'+last.zFibre,
-   splice:spliceNames.join(', '),circuit:mergedCircuits(rows),circuitName:'',customer:''});
+   splice:spliceNames.join(', '),circuit:mergedCircuits(rows),circuitName:'',customer:'',comments:''});
  }
  for(const rows of buckets.values()){
   const unspliced=rows[0].tray==='__unspliced__';
@@ -349,7 +356,7 @@ function renderLiveSchedule(){
  // Always place Unspliced Fibres below Unassigned tray, after numbered trays.
  const keys=[...groups.keys()].sort((a,b)=>a==='__unspliced__'?1:b==='__unspliced__'?-1:a==='__unassigned__'?1:b==='__unassigned__'?-1:naturalSort(a,b));
  const cols=groupTubes?['Position','A Cable','A Tube/Ribbon','A Fibre','Splice','Z Fibre','Z Tube/Ribbon','Z Cable','Circuit ID']:
-  ['Position','A Cable','A Fibre','Splice','Z Fibre','Z Cable','Circuit ID','Circuit Name','Customer'];
+  ['Position','A Cable','A Fibre','Splice','Z Fibre','Z Cable','Circuit ID','Circuit Name','Customer','Comments'];
  const cell=(v,className='')=>'<td class="'+(v?'':'blank ')+className+'">'+html(v||'—')+'</td>';
  const blocks=keys.map(key=>{
   const entries=groups.get(key);
@@ -373,11 +380,11 @@ function renderLiveSchedule(){
     cell(r.aFibre,'fibre')+cell(r.splice)+cell(r.zFibre,'fibre')+
     (groupTubes?cell(zLabel,zTube?(r.grouped&&r.memberCount===12?'tube-full':'tube-partial'):''):'')+
     cell(r.zCable)+cell(r.circuit,'circuit')+
-    (groupTubes?'':cell(r.circuitName)+cell(r.customer))+'</tr>';
+    (groupTubes?'':cell(r.circuitName)+cell(r.customer)+cell(r.comments,'comments'))+'</tr>';
   }).join('');
   const domId='tray-content-'+html(key).replace(/[^a-zA-Z0-9_-]/g,'_');
   return '<section class="tray-block"><h3><button class="tray-toggle" type="button" data-tray="'+html(key)+'" aria-expanded="'+(!collapsed)+'" aria-controls="'+domId+'"><span class="tray-chevron">'+(collapsed?'▶':'▼')+'</span><span>'+html(name)+'</span><small>'+label+'</small></button></h3>'+
-   '<div id="'+domId+'" class="tray-content"'+(collapsed?' hidden':'')+'>'+note+groupNote+'<div style="overflow:auto"><table class="live-table"><thead><tr>'+cols.map(x=>'<th>'+html(x)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section>';
+   '<div id="'+domId+'" class="tray-content"'+(collapsed?' hidden':'')+'>'+note+groupNote+'<div style="overflow:auto"><table class="live-table'+(groupTubes?' grouped-aligned':'')+'">'+(groupTubes?'<colgroup><col style="width:6%"><col style="width:16%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:10%"><col style="width:16%"><col style="width:15%"></colgroup>':'')+'<thead><tr>'+cols.map(x=>'<th>'+html(x)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section>';
  }).join('');
  const error=unsplicedError?'<div class="live-empty">Unspliced candidate check unavailable: '+html(unsplicedError)+'</div>':'';
  $('circuitTable').innerHTML=(blocks||'<div class="live-empty">No matching splice connections or unspliced candidates.</div>')+error;
@@ -428,13 +435,13 @@ $('liveCsv').addEventListener('click',()=>{
  if(!cableExportRows.length)output.push(['No referenced cables found']);
  output.push([],['SPLICE SCHEDULE']);
  const head=groupTubes?['Tray','Tray position','A cable','A Tube/Ribbon','A fibre','Splice','Z fibre','Z Tube/Ribbon','Z cable','Circuit ID']:
-  ['Tray','Tray position','A cable','A fibre','Splice','Z fibre','Z cable','Circuit ID','Circuit name','Customer'];
+  ['Tray','Tray position','A cable','A fibre','Splice','Z fibre','Z cable','Circuit ID','Circuit name','Customer','Comments'];
  output.push(head);
  const groups=displayedGroups();
  const data=[...groups.values()].flatMap(rows=>rows.map(r=>{
   const aTube=r.grouped?r.aTube:tubeNumber(r.aFibre),zTube=r.grouped?r.zTube:tubeNumber(r.zFibre);
   return groupTubes?[r.tray,r.position,r.aCable,aTube?tubeDisplayLabel(aTube,r):'',r.aFibre,r.splice,r.zFibre,zTube?tubeDisplayLabel(zTube,r):'',r.zCable,r.circuit]:
-   [r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zFibre,r.zCable,r.circuit,r.circuitName,r.customer];
+   [r.tray,r.position,r.aCable,r.aFibre,r.splice,r.zFibre,r.zCable,r.circuit,r.circuitName,r.customer,r.comments];
  }));
  output.push(...data);
  if(!data.length)output.push(['No matching splice schedule rows']);
@@ -499,7 +506,7 @@ async function querySplices(){try{
  const cf=findField(cm.fields||[],['segmentid']),nf=findField(cm.fields||[],['cable_name']);
  if(ids.length&&!sf)throw Error('Signal layer 30 has no ipid field');
  if(segments.length&&(!cf||!nf))throw Error('FiberCable layer 7 must contain segmentid and cable_name fields');
- const wanted=['ipid','circuitid','circuitname','customer','customername','customer_name'];
+ const wanted=['ipid','circuitid','circuitname','customer','customername','customer_name','comments'];
  const signalFields=(sm.fields||[]).filter(x=>wanted.includes(x.name.toLowerCase())).map(x=>x.name).join(',')||'*';
  const cableFieldsWanted=['segmentid','cable_name','cabletype','manufacturer','fibercount','buffercount','fibersperbuffer','inventory_status_code','measuredlength'];
  const cableFields=(cm.fields||[]).filter(x=>cableFieldsWanted.includes(x.name.toLowerCase())).map(x=>x.name).join(',')||'*';
@@ -534,6 +541,7 @@ async function querySplices(){try{
     r.circuit=circuitUnique(signals.map(x=>val(x,'circuitid')));
     r.circuitName=circuitUnique(signals.map(x=>val(x,'circuitname')));
     r.customer=circuitUnique(signals.map(x=>val(x,'customer','customername','customer_name')));
+    r.comments=circuitUnique(signals.map(x=>val(x,'comments')));
    }
    renderLiveSchedule();
   candidateNote='; '+unsplicedRows.length+' unspliced candidates from '+check.scanned+' fibres checked';
